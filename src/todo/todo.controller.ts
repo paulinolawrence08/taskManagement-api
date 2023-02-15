@@ -16,14 +16,14 @@ import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-// @UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
 @Controller('tasks')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
   create(@Body() createTodoDto: CreateTodoDto, @Request() req) {
-    this.todoService.currentUserId = +req.user.userId;
+    this.todoService.currentUserId = 1; //+req.user.userId;
     return this.todoService.create(createTodoDto);
   }
 
@@ -43,7 +43,7 @@ export class TodoController {
 
   @Get(':id')
   findOne(@Param('id') id: string, @Request() req) {
-    this.todoService.currentUserId = +req.user.userId;
+    this.todoService.currentUserId = 1; //+req.user.userId;
     return this.todoService.findOne(+id);
   }
 
@@ -53,14 +53,14 @@ export class TodoController {
     @Body() updateTodoDto: UpdateTodoDto,
     @Request() req,
   ) {
-    this.todoService.currentUserId = +req.user.userId;
+    this.todoService.currentUserId = 1; //+req.user.userId;
 
     return this.todoService.update(+id, updateTodoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string, @Request() req) {
-    this.todoService.currentUserId = +req.user.userId;
+    this.todoService.currentUserId = 1; //+req.user.userId;
     return this.todoService.remove(+id);
   }
 }
